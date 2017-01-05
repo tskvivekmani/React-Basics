@@ -2,7 +2,7 @@
 @import "grid";
 @import "themes/default/master";
 
-#root {
+#root #container {
 	button.create{
 		margin-bottom: 8px;
 	}
@@ -38,6 +38,12 @@
 			}
 		}
 
+	}
+	
+	.welcome{
+		text-align: center;
+		color: darkgoldenrod;
+		box-shadow: inset 3px 3px 30px 1px #888;
 	}
 
 }
