@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>React - Template</title>
+    <script src="../../js/react.min.js"></script>
+    <script src="../../js/react-dom.min.js"></script>
+    <script src="../../js/browser.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="../../css/main.css" />
+</head>
+<body>
+
+    <div id="container"></div>
+
+    <script type="text/babel">
+        
+		function Welcome(props){
+			return (
+					<h1 className="welcome">Hi {props.name}, Welcome to React!</h1>
+				);
+		}
+		
+		class Comment extends React.Component{
+			
+			constructor(){
+				super();
+				this.state = {
+					editable: false
+				};
+			}
+			
+			edit(){
+				this.setState({
+					editable: true
+				});
+			}
+			
+			remove(){
+				this.setState({
+					editable: false
+				});
+			}
+			
+			save(){
+				
+			}
+			
+			renderForm(){
+				return (
+						<div>
+						<textarea className="comment">{this.props.children}</textarea>
+						<button onClick={this.save} className="button-success">Save</button>
+						</div>
+				);
+			}
+			
+			renderList(){
+				return (
+					<div>
+						<h1 className="comment">{this.props.children}</h1>
+						<button onClick={this.edit} className="button-primary">Edit</button>
+						<button onClick={this.remove} className="button-danger">Remove</button>
+					</div>
+				);
+			}
+			
+			render(){
+				if(this.state.editable)
+				{
+					return (
+						<div className="commentContainer">
+							{this.renderForm()}
+						</div>
+					);
+				}
+				else{
+					return (
+						<div className="commentContainer">
+							{this.renderList()}
+						</div>
+					);
+				}
+				return <h1>Issue with application</h1>;
+			}
+		}
+		
+		ReactDOM.render(
+			<div>
+				<Welcome name="Vivekmani TSK"/>
+				<div className="board">
+					<center>
+						<Comment>Its an awesome product</Comment>
+						<Comment>Its a good product</Comment>
+						<Comment>Its the best product</Comment>
+					<br/>
+						<Comment>Its wortheless product</Comment>
+						<Comment>Its a bad product</Comment>
+						<Comment>Its worst product</Comment>
+					</center>
+				</div>
+			</div>,
+            document.getElementById('container')
+        );
+    </script>
+
+</body>
+</html>
