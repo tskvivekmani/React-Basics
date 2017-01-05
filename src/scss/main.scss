@@ -2,7 +2,7 @@
 @import "grid";
 @import "themes/default/master";
 
-#root #container {
+#root, #container {
 	button.create{
 		margin-bottom: 8px;
 	}
@@ -20,7 +20,9 @@
 			border: 1px solid #ccc;
 			display: inline-block;
 			margin: 8px;
-			padding: 8px;
+			padding: 16px;
+			border-radius: 20px 10px;
+			box-shadow: 10px 10px 5px #888888;
 
 			.comment {
 				font-size: 1.1em;

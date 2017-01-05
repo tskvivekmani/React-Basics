@@ -38,9 +38,7 @@
 			}
 			
 			remove(){
-				this.setState({
-					editable: false
-				});
+				alert("remove");
 			}
 			
 			save(){
@@ -49,10 +47,10 @@
 			
 			renderForm(){
 				return (
-						<div>
+					<div>
 						<textarea className="comment">{this.props.children}</textarea>
 						<button onClick={this.save} className="button-success">Save</button>
-						</div>
+					</div>
 				);
 			}
 			
@@ -90,15 +88,12 @@
 			<div>
 				<Welcome name="Vivekmani TSK"/>
 				<div className="board">
-					<center>
 						<Comment>Its an awesome product</Comment>
 						<Comment>Its a good product</Comment>
 						<Comment>Its the best product</Comment>
-					<br/>
 						<Comment>Its wortheless product</Comment>
 						<Comment>Its a bad product</Comment>
 						<Comment>Its worst product</Comment>
-					</center>
 				</div>
 			</div>,
             document.getElementById('container')
