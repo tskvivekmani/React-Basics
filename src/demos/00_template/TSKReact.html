@@ -27,7 +27,8 @@
 			constructor(){
 				super();
 				this.state = {
-					editable:false
+					editable:false,
+					name: "Vivekmani"
 				}
 				this.edit = this.edit.bind(this);
 				this.remove = this.remove.bind(this);
@@ -41,10 +42,13 @@
 			}
 			
 			remove(){
-				
+				this.props.removeComment(this.props.index);
 			}
 			
 			save(){
+				var text = this.refs.newText.value;
+				console.log(text);
+				this.props.udpateText(text,this.props.index);
 				this.setState({
 					editable:false
 				});
@@ -53,7 +57,7 @@
 			renderForm(){
 				return (
 					<div className="commentContainer">
-						<textarea className="comment">{this.props.children}</textarea>
+						<textarea ref="newText" className="comment">{this.props.children}</textarea>
 						<button onClick={this.save} className="button-success">Save</button>
 					</div>
 				);
@@ -79,17 +83,70 @@
 			}
 		}
 		
+		class Platform extends React.Component{
+			constructor(){
+				super();
+				this.state = {
+					comments:[
+						'Hello',
+						'Hi',
+						'Howdy'
+					]
+				};
+				this.udpateText = this.udpateText.bind(this);
+				this.removeComment = this.removeComment.bind(this);
+			}
+			
+			udpateText(text,index){
+				var arr = this.state.comments;
+				arr[index] = text;
+				this.setState({comments:arr})
+			}
+			
+			removeComment(index){
+				var arr = this.state.comments;
+				//remove start from the index and the delete count
+				arr.splice(index,1);
+				this.setState({comments:arr});
+			}
+			
+			addComment(){
+				var arr = this.state.comments;
+				arr.push("Default");
+				this.setState({comments:arr});
+			}
+			
+			getComments(){
+				return (
+					<div className="board">
+						{
+							this.state.comments.map( (text,i) =>
+								<ul>
+									<Comment key={i} index={i} udpateText={this.udpateText} removeComment={this.removeComment}>
+										{text}
+									</Comment>
+								</ul>
+							)
+						}
+					</div>
+				)
+			}
+			
+			render(){
+				return (
+					<div>
+						<button className="button-create" onClick={this.addComment.bind(this)}>+</button>
+						<a href="tel:9842729112">Call</a>
+						{this.getComments()}
+					</div>
+				);
+			}
+		}
+		
 		ReactDOM.render(
 			<div>
 				<Welcome name="Vivekmani TSK"/>
-				<div className="board">
-						<Comment>Its an awesome product</Comment>
-						<Comment>Its a good product</Comment>
-						<Comment>Its the best product</Comment>
-						<Comment>Its wortheless product</Comment>
-						<Comment>Its a bad product</Comment>
-						<Comment>Its worst product</Comment>
-				</div>
+				<Platform />
 			</div>,
             document.getElementById('container')
         );
