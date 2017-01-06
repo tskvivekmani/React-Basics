@@ -23,31 +23,36 @@
 		}
 		
 		class Comment extends React.Component{
-			
+
 			constructor(){
 				super();
 				this.state = {
-					editable: false
-				};
+					editable:false
+				}
+				this.edit = this.edit.bind(this);
+				this.remove = this.remove.bind(this);
+				this.save = this.save.bind(this);
 			}
 			
 			edit(){
 				this.setState({
-					editable: true
+					editable:true
 				});
 			}
 			
 			remove(){
-				alert("remove");
+				
 			}
 			
 			save(){
-				
+				this.setState({
+					editable:false
+				});
 			}
 			
 			renderForm(){
 				return (
-					<div>
+					<div className="commentContainer">
 						<textarea className="comment">{this.props.children}</textarea>
 						<button onClick={this.save} className="button-success">Save</button>
 					</div>
@@ -56,7 +61,7 @@
 			
 			renderList(){
 				return (
-					<div>
+					<div className="commentContainer">
 						<h1 className="comment">{this.props.children}</h1>
 						<button onClick={this.edit} className="button-primary">Edit</button>
 						<button onClick={this.remove} className="button-danger">Remove</button>
@@ -65,22 +70,12 @@
 			}
 			
 			render(){
-				if(this.state.editable)
-				{
-					return (
-						<div className="commentContainer">
-							{this.renderForm()}
-						</div>
-					);
+				if(this.state.editable){
+					return this.renderForm();
 				}
 				else{
-					return (
-						<div className="commentContainer">
-							{this.renderList()}
-						</div>
-					);
+					return this.renderList()
 				}
-				return <h1>Issue with application</h1>;
 			}
 		}
 		
