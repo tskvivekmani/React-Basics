@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Using the XMLHttpRequest object</h2>
+
+<button type="button" onclick="loadXMLDoc()">Change Content</button>
+
+<p id="demo" style="color:black;border:solid 5px green;">Valid response appears here</p>
+<p id="error" style="color:red;border:solid 5px red;">Invalid response</p>
+
+<script>
+function loadXMLDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+    else{
+    	document.getElementById("error").innerHTML =
+      	this.responseText;
+    }
+  };
+  xhttp.open("GET", "https://facebook.github.io/react-native/movies.json");
+  xhttp.send();
+}
+</script>
+
+</body>
+</html>
