@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,19 +8,118 @@
     <script src="../../js/react.min.js"></script>
     <script src="../../js/react-dom.min.js"></script>
     <script src="../../js/browser.min.js"></script>
+    <script src="../../js/d3.js"></script>
+    <script src="../../js/react-d3-basic.js"></script>
 </head>
+
 <body>
 
     <div id="container"></div>
+    <div id="chart"></div>
+    <div id="data_line"></div>
 
     <script type="text/babel">
-        var BuckysComponent = React.createClass({
+        var BuckysComponent = React.createClass({ 
             render: function() {
-                return (<h2>This is a simple component</h2>);
+                return (
+                    <h2>This is a simple component</h2>); } }); 
+        ReactDOM.render(
+            <BuckysComponent />, 
+            document.getElementById('container')); 
+
+        class MyChart extends React.Component{
+            constructor(){
+                super();
+                this.state ={
+                    data: [
+                        {"age": 39,"index": 0},
+                        {"age": 38,"index": 1},
+                        {"age": 34,"index": 2},
+                        {"age": 10,"index": 3}
+                    ],
+                    data1: [
+                        {"name": "Apple","good": 9, "bad": 1, "index": 0},
+                        {"name": "Orange","good": 7, "bad": 3, "index": 1},
+                        {"name": "Chikku","good": 7, "bad": 3, "index": 2},
+                        {"name": "Mosambi","good": 10, "bad": 0, "index": 3}
+                    ]
+                }
             }
-        });
-        ReactDOM.render(<BuckysComponent />, document.getElementById('container'));
+
+            componentDidMount(){
+                setTimeout(
+                    () => 
+                    this.setState({
+                        data1: [
+                            {"name": "Apple","good": 7, "bad": 3, "index": 0},
+                            {"name": "Orange","good": 1, "bad": 9, "index": 1},
+                            {"name": "Chikku","good": 10, "bad": 0, "index": 2},
+                            {"name": "Mosambi","good": 1, "bad": 9, "index": 3}
+                        ]
+                    }),1000
+                )
+            }
+            
+            presd(){
+                    this.setState({
+                        data1: [
+                        {"name": "Apple","good": 70, "bad": 3, "index": 0},
+                        {"name": "Orange","good": 1, "bad": 9, "index": 1},
+                        {"name": "Chikku","good": 10, "bad": 0, "index": 2},
+                        {"name": "Mosambi","good": 1, "bad": 9, "index": 3}
+                    ]
+                    })
+            }
+            
+            render(){
+                var width = 500;
+                var height = 300;
+                var xScale = 'ordinal';
+                var yScale = 'linear';
+                var yTickFormat = d3.format("1.2s");
+
+                var stackSeries = [
+                    {
+                        field: 'name',
+                        name: 'Fruit',
+                        color: 'red',
+                    },
+                    {
+                        field: 'good',
+                        name: '+ve',
+                        color: 'blue',
+                    },
+                    {
+                        field: 'bad',
+                        name: '-ve',
+                        color: 'cyan',
+                    }
+                ],
+                x = function(d) {
+                    return d.index
+                },xScale = 'ordinal'
+
+                var BarStackChart = ReactD3Basic.BarStackChart;
+
+                return(
+                    <div>
+                        <BarStackChart
+                            data={this.state.data1}
+                            chartSeries={stackSeries}
+                            x={x}
+                            xScale={xScale} />
+                        <button onClick={this.presd.bind(this)}>+++</button>
+                    </div>
+                    );
+                }
+        }
+        ReactDOM.render(
+            <MyChart />, 
+            document.getElementById('data_line'));
+            
     </script>
 
+
 </body>
+
 </html>
